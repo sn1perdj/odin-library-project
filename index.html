@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="responsive.css" />
+    <!-- SVGs -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav role="navbar" class="nav">
+      <ul>
+        <li class="nav-item1"><a href="#">My Library</a></li>
+        <li class="nav-item2">
+          <a href="#">Books <span class="book-counter"></span></a>
+        </li>
+        <li class="nav-item3">
+          <a href="#"
+            ><span class="material-symbols-outlined"> add_circle </span></a
+          >
+        </li>
+      </ul>
+    </nav>
+    <main role="main" class="main">
+      <div class="cards">
+        <div class="book-name">Games of Thrones</div>
+        <div class="author-name">George R. R. Martin</div>
+        <div class="pages"><span>21 </span>Pages</div>
+        <div class="language">English</div>
+        <div class="published">2023-02-24</div>
+      </div>
+    </main>
+    <aside class="popup">
+      <div class="popup-card">
+        <form action="GET" class="form-popup">
+          <div>
+            <label for="book">Book Name: </label>
+          </div>
+          <input type="text" name="book" id="book" />
+          <div>
+            <label for="author">Author: </label>
+          </div>
+          <input type="text" name="author" id="author" />
+          <div>
+            <label for="page">Total Pages: </label>
+          </div>
+          <input type="number" name="page" id="page" />
+          <div>
+            <label for="lang">Language: </label>
+          </div>
+          <input type="text" name="lang" id="lang" />
+          <div>
+            <label for="publish-date">Publishe Date: </label>
+          </div>
+          <input type="date" name="publish-date" id="publish-date" />
+          <div class="form-btns">
+            <input type="submit" value="Submit" class="submit-btn" />
+            <a href="#" class="remove-btn">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </aside>
+    <!-- Javascript -->
+    <script src="app.js"></script>
+  </body>
+</html>
