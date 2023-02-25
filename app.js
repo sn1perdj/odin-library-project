@@ -50,6 +50,7 @@ function removeBook(book) {
         library.splice(index, 1);
         main.removeChild(book);
     }
+    bookCounter();
 }
 
 /*
