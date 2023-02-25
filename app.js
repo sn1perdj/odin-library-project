@@ -1,85 +1,124 @@
 const aside = document.querySelector("aside");
 const main = document.querySelector(".main");
-
-// To open the popUp windows for adding new card
-function remove_BTN() {
-  aside.classList.add("popup");
-}
-
 const addBtn = document.querySelector(".nav-item3");
-addBtn.addEventListener("click", () => {
-  aside.classList.remove("popup");
-});
-
-// To close the popUp windows for adding new card
 const removeBtn = document.querySelector(".remove-btn");
-removeBtn.addEventListener("click", remove_BTN);
-
 const library = [1];
 
-// Book Constructor
+/*
+ * // Function for closing the Form Popup
+ */
+function remove_PopUp() {
+    aside.classList.add("popup");
+}
+/*
+ * To close the popUp windows for adding new card
+ */
+removeBtn.addEventListener("click", remove_PopUp);
+
+/*
+ * To open the popUp windows for adding new card
+ */
+addBtn.addEventListener("click", () => {
+    aside.classList.remove("popup");
+});
+
+/*
+ * Book Constructor
+ */
 function Book(name, author, pages, language, published) {
-  this.name = name;
-  this.author = author;
-  this.pages = pages;
-  this.language = language;
-  this.published = published;
+    this.id = Math.floor(Math.random() * 1000000); // Generate a unique ID for each book
+    this.name = name;
+    this.author = author;
+    this.pages = pages;
+    this.language = language;
+    this.published = published;
+    // this.removeBTN = this.id;
 }
 
-// Book counter to DOM
+/*
+ * Book counter to DOM
+ */
 function bookCounter() {
-  const count = document.querySelector(".book-counter");
-  count.innerText = library.length;
+    const count = document.querySelector(".book-counter");
+    count.innerText = library.length;
 }
 
-// Adding the book to DOM
+// Remove the book from DOM & Library
+function removeBook(book) {
+    const index = library.indexOf(book);
+    if (index === -1) {
+        library.splice(index, 1);
+        main.removeChild(book);
+    }
+}
+
+/*
+ * Adding the book to DOM
+ */
 function addBook_DOM(arr) {
-  const div = document.createElement("div");
-  const book = document.createElement("div");
-  const author = document.createElement("div");
-  const page = document.createElement("div");
-  const language = document.createElement("div");
-  const published = document.createElement("div");
-  book.innerText = arr[0];
-  author.innerText = arr[1];
-  page.innerText = arr[2];
-  language.innerText = arr[3];
-  published.innerText = arr[4];
-  div.classList.add("cards");
-  main.append(div);
-  div.append(book, author, page, language, published);
-  console.log(library);
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.setAttribute("id", arr.id);
+    main.append(card);
+
+    const content = document.createElement("div");
+    content.classList.add("content");
+    card.append(content);
+
+    const book = document.createElement("div");
+    book.innerText = arr.name;
+    const author = document.createElement("div");
+    author.innerText = arr.author;
+    const page = document.createElement("div");
+    page.innerText = arr.pages;
+    const language = document.createElement("div");
+    language.innerText = arr.language;
+    const published = document.createElement("div");
+    published.innerText = arr.published;
+    const btn = document.createElement("a");
+
+    btn.classList.add("btn");
+    btn.innerText = "Remove";
+    btn.addEventListener("click", () => {
+        removeBook(card);
+    });
+
+    content.append(book, author, page, language, published, btn);
 }
 
-// Add books to the Library Array
+/*
+ * // Add books to the Library Array
+ */
 function addBook_Library(arr) {
-  /* Checking if the array is empty. */
-  const isEmptyArray = arr.every((element) => element === "");
-  if (isEmptyArray) {
-    console.log("myArray is empty");
-  } else {
-    const newBook = new Book(...arr);
-    library.push(newBook);
-    bookCounter();
-    addBook_DOM(arr);
-  }
+    /* Checking if the array is empty. */
+    const isEmptyArray = arr.every((element) => element === "");
+    if (isEmptyArray) {
+        console.log("No details found, please add details about the book.");
+    } else {
+        const newBook = new Book(...arr);
+        library.push(newBook);
+        addBook_DOM(newBook);
+        bookCounter();
+    }
 }
 
-// getting userInput data [Book data]
+/*
+ * // getting userInput data [Book data]
+ */
 const bookSubmit = document.querySelector(".submit-btn");
-bookSubmit.addEventListener("click", function (e) {
-  e.preventDefault();
-  const bookName = document.querySelector("#book").value;
-  const authorName = document.querySelector("#author").value;
-  const totalPages = document.querySelector("#page").value;
-  const language_book = document.querySelector("#lang").value;
-  let published_date = document.querySelector("#publish-date").value;
-  addBook_Library([
-    bookName,
-    authorName,
-    totalPages,
-    language_book,
-    published_date,
-  ]);
-  remove_BTN();
+bookSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+    const bookName = document.querySelector("#book").value;
+    const authorName = document.querySelector("#author").value;
+    const totalPages = document.querySelector("#page").value;
+    const language_book = document.querySelector("#lang").value;
+    let published_date = document.querySelector("#publish-date").value;
+    addBook_Library([
+        bookName,
+        authorName,
+        totalPages,
+        language_book,
+        published_date,
+    ]);
+    remove_PopUp();
 });
