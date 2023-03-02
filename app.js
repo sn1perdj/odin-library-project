@@ -104,6 +104,59 @@ function addBook_Library(arr) {
 }
 
 /*
+ * Function to convert Month type.
+ */
+function changeDateFormate(value) {
+    const date = value.split("-");
+    let year = date[0];
+    let month = parseInt(date[1]);
+    let monthName;
+    switch (month) {
+        case 1:
+            monthName = "Jan";
+            break;
+        case 2:
+            monthName = "Feb";
+            break;
+        case 3:
+            monthName = "Mar";
+            break;
+        case 4:
+            monthName = "Apr";
+            break;
+        case 5:
+            monthName = "May";
+            break;
+        case 6:
+            monthName = "Jun";
+            break;
+        case 7:
+            monthName = "Jul";
+            break;
+        case 8:
+            monthName = "Aug";
+            break;
+        case 9:
+            monthName = "Sep";
+            break;
+        case 10:
+            monthName = "Oct";
+            break;
+        case 11:
+            monthName = "Nov";
+            break;
+        case 12:
+            monthName = "Dec";
+            break;
+        default:
+            monthName = "Invalid month number";
+            break;
+    }
+    let day = date[2];
+    return monthName + " " + day + " " + year;
+}
+
+/*
  * // getting userInput data [Book data]
  */
 const bookSubmit = document.querySelector(".submit-btn");
@@ -113,13 +166,14 @@ bookSubmit.addEventListener("click", (e) => {
     const authorName = document.querySelector("#author").value;
     const totalPages = document.querySelector("#page").value;
     const language_book = document.querySelector("#lang").value;
-    let published_date = document.querySelector("#publish-date").value;
+    const published_date = document.querySelector("#publish-date").value;
+    const changedMonth = changeDateFormate(published_date);
     addBook_Library([
         bookName,
         authorName,
         totalPages,
         language_book,
-        published_date,
+        changedMonth,
     ]);
     remove_PopUp();
 });
